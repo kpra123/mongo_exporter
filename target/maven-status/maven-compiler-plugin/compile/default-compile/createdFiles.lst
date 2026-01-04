@@ -1,0 +1,9 @@
+com\ess\mongoexp\MongoProvider.class
+com\ess\mongoexp\MongoCallbackMetricRegistrar$1.class
+com\ess\mongoexp\AppConfig.class
+com\ess\mongoexp\MongoConfig.class
+com\ess\mongoexp\MetricConfig.class
+com\ess\mongoexp\App.class
+com\ess\mongoexp\ConfigLoader.class
+com\ess\mongoexp\MongoCallbackMetricRegistrar.class
+com\ess\mongoexp\PrometheusConfig.class

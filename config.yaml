@@ -1,0 +1,64 @@
+mongodb:
+  uri: mongodb+srv://kpra123_db_user:ZuZQZM7ckyWhg5DH@mongotestcluster.hhqrmgw.mongodb.net/?appName=MongoTestCluster
+  database: sample_airbnb
+
+prometheus:
+  port: 9091
+  endpoint: /metrics
+  jobName: mongo_metrics
+  
+metrics:
+  - name: house_count
+    help: "Total House"
+    collection: listingsAndReviews
+    query: |
+      [
+        {
+          $match: {
+            property_type: "House"
+          }
+        },
+        {
+          $group: {
+            _id: {
+              bed_type: "$bed_type",
+              bedrooms: "$bedrooms"
+            },
+            count: {
+              $sum: 1
+            }
+          }
+        }
+      ]
+    type: gauge
+    field: count
+    groupLabel: 
+      - bed_type
+      - bedrooms
+    staticlabels:
+      server: mongotestcluster.hhqrmgw.mongodb.net
+      database: sample_airbnb
+      collection: listingsAndReviews
+      property_type: House
+  - name: Total_houses
+    help: "Total Houses"
+    collection: listingsAndReviews
+    query: |
+      [
+        {
+          $match: {
+            property_type: "House"
+          }
+        },
+        {
+          $count: "total"
+        }
+      ]
+    type: gauge
+    field: total
+    groupLabel: 
+    staticlabels:
+      server: mongotestcluster.hhqrmgw.mongodb.net
+      database: sample_airbnb
+      collection: listingsAndReviews
+      property_type: House
