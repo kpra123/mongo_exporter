@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.bson.BsonArray;
 import org.bson.Document;
 
@@ -47,6 +46,7 @@ public class MongoCallbackMetricRegistrar {
                     )
                     .callback(callback -> {
                         try{
+                            ArrayList<String> al = new ArrayList<String>();
                             List<Document> pipeline =
                                 BsonArray.parse(metric.query)
                                 .stream()
@@ -68,7 +68,7 @@ public class MongoCallbackMetricRegistrar {
                                     }
                                     callback.call(
                                         ((Number) valueObj).doubleValue(),
-                                        v_labelValues.toArray(String[]::new)
+                                        v_labelValues.toArray(new String[al.size()])
                                     );
                                 }
                                 else{
@@ -76,7 +76,7 @@ public class MongoCallbackMetricRegistrar {
                                     metric.staticlabels.values().forEach(v -> v_labelValues.add(v));
                                     callback.call(
                                         ((Number) valueObj).doubleValue(),
-                                        v_labelValues.toArray(String[]::new)
+                                        v_labelValues.toArray(new String[al.size()])
                                     );
                                 }
                             }                            
