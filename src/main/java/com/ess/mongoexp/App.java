@@ -23,7 +23,7 @@ public class App
             logger.info("Mongodb URL: {}", v_AppConfig.mongodb.uri);
             logger.info("Mongodb Database: {}", v_AppConfig.mongodb.database);
             MongoDatabase database = MongoProvider.create(v_AppConfig);
-            MongoCallbackMetricRegistrar.register(database, v_AppConfig);
+            MongoCallbackMetricRegistrar.register(logger, database, v_AppConfig);
             //HTTPServer.builder().port(Integer.parseInt(v_AppConfig.prometheus.port)).buildAndStart();
             HTTPServer.Builder builder = HTTPServer.builder().port(Integer.parseInt(v_AppConfig.prometheus.port));
             builder.buildAndStart();

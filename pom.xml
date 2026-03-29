@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.ess.mongoexp</groupId>
   <artifactId>mongo_exporter</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>9.0</version>
 
   <name>mongo_exporter</name>
   <!-- FIXME change it to the project's website -->
@@ -26,14 +26,24 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>2.0.17</version> <!-- Use the latest version -->
+      <version>2.0.17</version> <!-- Use the latest version 2.0.17 -->
     </dependency>
     <!-- Logback classic as logging implementation -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.5.23</version> <!-- Use the latest version -->
+      <version>1.5.24</version> <!-- Use the latest version -->
       <!-- This dependency includes the slf4j-api automatically -->
+    </dependency>
+    <dependency>
+      <groupId>com.ezylang</groupId>
+      <artifactId>EvalEx</artifactId>
+      <version>3.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.janino</groupId>
+      <artifactId>janino</artifactId>
+      <version>3.1.12</version>
     </dependency>
     <dependency>
         <groupId>org.mongodb</groupId>
@@ -87,6 +97,7 @@
           <artifactId>maven-assembly-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
+            <appendAssemblyId>false</appendAssemblyId>
             <descriptorRefs>
               <descriptorRef>jar-with-dependencies</descriptorRef>
             </descriptorRefs>

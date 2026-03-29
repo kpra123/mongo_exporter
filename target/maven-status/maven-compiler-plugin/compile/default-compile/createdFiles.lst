@@ -1,6 +1,7 @@
 com\ess\mongoexp\MongoProvider.class
 com\ess\mongoexp\MongoCallbackMetricRegistrar$1.class
 com\ess\mongoexp\AppConfig.class
+com\ess\mongoexp\expressionEvaluator.class
 com\ess\mongoexp\MongoConfig.class
 com\ess\mongoexp\MetricConfig.class
 com\ess\mongoexp\App.class

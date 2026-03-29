@@ -1,6 +1,11 @@
 mongodb:
-  uri: mongodb+srv://kpra123_db_user:ZuZQZM7ckyWhg5DH@mongotestcluster.hhqrmgw.mongodb.net/?appName=MongoTestCluster
-  database: sample_airbnb
+  database: test
+  username: "grafanaro"
+  password: "EssplDB1997"
+  clusterEndpoint: "docdb-2026-01-06-06-21-53.cfocyuk6aet4.ap-south-1.docdb.amazonaws.com:27017"
+  readPreference: "secondaryPreferred"
+  truststore: "rds-truststore.jks"
+  truststorePassword: "EssplDB1997"
 
 prometheus:
   port: 9091
@@ -8,46 +13,42 @@ prometheus:
   jobName: mongo_metrics
   
 metrics:
-  - name: house_count
-    help: "Total House"
-    collection: listingsAndReviews
+  - name: users_count_gt_32
+    help: "Total Users count age greater than 32"
+    collection: userdata
+    placeholders:
+      oneHourAgo: "new java.text.SimpleDateFormat(\"yyyy-MM-dd'T'HH:mm:ss'Z'\").format(new java.util.Date(System.currentTimeMillis() - 3600000))"
     query: |
       [
         {
           $match: {
-            property_type: "House"
+            createdAt: { 
+              $gte: ISODate("{{oneHourAgo}}") 
+            }
           }
         },
         {
-          $group: {
-            _id: {
-              bed_type: "$bed_type",
-              bedrooms: "$bedrooms"
-            },
-            count: {
-              $sum: 1
-            }
-          }
+          $count: "total"
         }
       ]
     type: gauge
-    field: count
-    groupLabel: 
-      - bed_type
-      - bedrooms
+    field: total
+    groupLabel:
     staticlabels:
-      server: mongotestcluster.hhqrmgw.mongodb.net
-      database: sample_airbnb
-      collection: listingsAndReviews
-      property_type: House
-  - name: Total_houses
-    help: "Total Houses"
-    collection: listingsAndReviews
+      server: docdb-2026-01-06-06-21-53.cfocyuk6aet4.ap-south-1.docdb.amazonaws.com
+      database: test
+      collection: userdata
+      criteria: age_gt_32
+  - name: Total_users_Tom_Cruise
+    help: "Total users in the collection by name Tom Cruise"
+    collection: users
+    placeholders:
+      dummy: "1+1"
     query: |
       [
         {
           $match: {
-            property_type: "House"
+            name: "Tom Cruise"
           }
         },
         {
@@ -58,7 +59,7 @@ metrics:
     field: total
     groupLabel: 
     staticlabels:
-      server: mongotestcluster.hhqrmgw.mongodb.net
-      database: sample_airbnb
-      collection: listingsAndReviews
-      property_type: House
+      server: docdb-2026-01-06-06-21-53.cfocyuk6aet4.ap-south-1.docdb.amazonaws.com
+      database: test
+      collection: users
+      criteria: name_Tom_Cruise
